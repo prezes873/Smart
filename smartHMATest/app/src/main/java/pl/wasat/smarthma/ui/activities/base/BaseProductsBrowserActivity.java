@@ -126,7 +126,7 @@ public class BaseProductsBrowserActivity extends BaseSmartHMActivity implements
             amznExtendedMapFragment = AmznExtendedMapFragment.newInstance();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.activity_base_details_container, amznExtendedMapFragment,
+                    .add(R.id.activity_base_list_container, amznExtendedMapFragment,
                             "ExtendedMapFragment")
                     .addToBackStack("ExtendedMapFragment").commit();
         } else {
@@ -134,7 +134,7 @@ public class BaseProductsBrowserActivity extends BaseSmartHMActivity implements
             extendedMapFragment = ExtendedMapFragment.newInstance();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.activity_base_details_container, extendedMapFragment,
+                    .add(R.id.activity_base_list_container, extendedMapFragment,
                             "ExtendedMapFragment")
                     .addToBackStack("ExtendedMapFragment").commit();
         }

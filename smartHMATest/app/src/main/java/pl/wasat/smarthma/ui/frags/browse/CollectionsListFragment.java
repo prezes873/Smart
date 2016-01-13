@@ -198,7 +198,7 @@ public class CollectionsListFragment extends BaseSpiceFragment {
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.activity_base_details_container,
+                    .replace(R.id.activity_base_list_container,
                             collectionEmptyDetailsFragment, "CollectionEmptyDetailsFragment")
                     .addToBackStack("CollectionEmptyDetailsFragment").commit();
         }

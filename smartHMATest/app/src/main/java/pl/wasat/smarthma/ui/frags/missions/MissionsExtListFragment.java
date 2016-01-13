@@ -47,6 +47,7 @@ public class MissionsExtListFragment extends Fragment {
     private OnExtendedListFragmentListener mListener;
     private ExpandableListView expListView;
     private ParserDb parserDb;
+    public boolean detail;
 
     /**
      * Use this factory method to create a new instance of this fragment using
@@ -60,6 +61,7 @@ public class MissionsExtListFragment extends Fragment {
     }
 
     public MissionsExtListFragment() {
+        detail = false;
     }
 
     @Override
@@ -119,9 +121,10 @@ public class MissionsExtListFragment extends Fragment {
                         .newInstance(missionItem);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.activity_base_details_container,
+                        .replace(R.id.activity_base_list_container,
                                 missionsDetailNewFragment, "MissionsDetailNewFragment")
                         .commit();
+                detail = true;
                 return false;
             }
         });

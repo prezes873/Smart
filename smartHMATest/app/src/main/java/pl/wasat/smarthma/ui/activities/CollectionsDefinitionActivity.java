@@ -64,11 +64,9 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
         TextView text = (TextView) findViewById(R.id.action_bar_title);
         text.setText("Searched Collections");
 
-        if (findViewById(R.id.activity_base_details_container) != null) {
             TWO_PANEL_MODE = true;
             loadLeftListPanel();
             loadMapWithBasicSettingsView();
-        }
 
         RelativeLayout btnBack = (RelativeLayout) findViewById(R.id.btnBackTwoPanel);
         btnBack.setOnClickListener(new View.OnClickListener() {

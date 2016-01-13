@@ -40,13 +40,13 @@ public class CollectionsBrowserActivity extends ExtendedBaseCollectionsActivity 
 
         dba = new EoDbAdapter(this);
 
-        if (findViewById(R.id.activity_base_details_container) != null) {
+        //if (findViewById(R.id.activity_base_details_container) != null) {
             DataSeriesListFragment dsListFragment = DataSeriesListFragment
                     .newInstance(fedeoRequestParams, stopNewSearch);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.activity_base_list_container, dsListFragment)
                     .commit();
-        }
+        //}
     }
 
     @Override
@@ -116,6 +116,8 @@ public class CollectionsBrowserActivity extends ExtendedBaseCollectionsActivity 
 
         CollectionDetailsFragment collectionDetailsFragment = CollectionDetailsFragment
                 .newInstance(selectedEntry);
+
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_base_details_container,

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import pl.wasat.smarthma.R;
 import pl.wasat.smarthma.model.mission.MissionItemData;
+import pl.wasat.smarthma.ui.activities.MissionsActivity;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -42,6 +43,7 @@ public class MissionsDetailsFragment extends Fragment {
      */
     public static MissionsDetailsFragment newInstance(
             MissionItemData missionData) {
+
         MissionsDetailsFragment fragment = new MissionsDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_MISSION_DATA, missionData);

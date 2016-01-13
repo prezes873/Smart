@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,11 +29,16 @@ public class MissionsActivity extends BaseSmartHMActivity implements
 
 
     private MissionsExtListFragment extendedListFragment;
+    public boolean detail, start;
+    String objective;
+    MissionItemData missionObjective;
+    MissionsDetailsFragment missionsDetailNewFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        start = false;
+        detail = false;
         RelativeLayout btnBack = (RelativeLayout) findViewById(R.id.btnBackTwoPanel);
         btnBack.setOnClickListener(new View.OnClickListener() {
 
@@ -60,17 +67,17 @@ public class MissionsActivity extends BaseSmartHMActivity implements
                     .add(R.id.activity_base_list_container, extendedListFragment,
                             "ExtendedListFragment").commit();
 
-            String objective = getString(R.string.mission_activity_objective);
-            MissionItemData missionObjective = new MissionItemData(0,
+            objective = getString(R.string.mission_activity_objective);
+
+            missionObjective = new MissionItemData(0,
                     "ESA Earth Observation Missions",
                     "https://earth.esa.int/web/guest/missions", "", objective);
-            MissionsDetailsFragment missionsDetailNewFragment = MissionsDetailsFragment
+
+            missionsDetailNewFragment = MissionsDetailsFragment
                     .newInstance(missionObjective);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.activity_base_details_container,
-                            missionsDetailNewFragment, "MissionsDetailNewFragment")
-                    .commit();
+
+            start = true;
+
         }
 
         //w przeciwnym wypadku odpalamy async task
@@ -83,6 +90,37 @@ public class MissionsActivity extends BaseSmartHMActivity implements
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if(missionsDetailNewFragment != null) {
+            if (extendedListFragment.detail)
+            {
+
+                if (getSupportFragmentManager().findFragmentByTag("ExtendedListFragment") == null) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.activity_base_list_container, extendedListFragment,
+                                    "ExtendedListFragment").commit();
+                    extendedListFragment.detail = false;
+                }
+                else
+                {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_base_list_container, extendedListFragment,
+                                    "ExtendedListFragment").commit();
+                    extendedListFragment.detail = false;
+                }
+
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void onMissionsDetailNewFragmentSearchData(String missionName) {

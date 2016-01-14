@@ -44,12 +44,14 @@ public class CollectionsListFragment extends BaseSpiceFragment {
     private static final String KEY_COLLECTIONS_GROUP_LIST_POSITION = "pl.wasat.smarthma.KEY_COLLECTIONS_GROUP_LIST_POSITION";
     private static final String KEY_COLLECTIONS_GROUP_NAME = "pl.wasat.smarthma.KEY_COLLECTIONS_GROUP_NAME";
     public static final String KEY_COLLECTIONS_NAME = "pl.wasat.smarthma.KEY_COLLECTIONS_NAME";
+    protected static boolean one_panel;
 
     private int parentListPos;
     private String selectGroupName;
     private String collName;
     private OnCollectionsListFragmentListener mListener;
     private ListView list;
+    private static boolean detail;
 
     /**
      * Use this factory method to create a new instance of this fragment using
@@ -58,7 +60,9 @@ public class CollectionsListFragment extends BaseSpiceFragment {
      * @param listPosParam Parameter 1.
      * @return A new instance of fragment BlankFragment.
      */
-    public static CollectionsListFragment newInstance(int listPosParam) {
+    public static CollectionsListFragment newInstance(int listPosParam, boolean Detail) {
+        detail = Detail;
+        one_panel = SmartHMApplication.one_panel;
         CollectionsListFragment fragment = new CollectionsListFragment();
         String groupName = SmartHMApplication.GlobalEODataList
                 .getCollectionsGroupList().get(listPosParam).getGroupName();
@@ -193,14 +197,28 @@ public class CollectionsListFragment extends BaseSpiceFragment {
                             collectionDetailsFragment, "CollectionDetailsFragment")
                     .addToBackStack("CollectionDetailsFragment").commit();
         } else {
+
             CollectionEmptyDetailsFragment collectionEmptyDetailsFragment = CollectionEmptyDetailsFragment
                     .newInstance(collName);
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_base_list_container,
-                            collectionEmptyDetailsFragment, "CollectionEmptyDetailsFragment")
-                    .addToBackStack("CollectionEmptyDetailsFragment").commit();
+            if (one_panel) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_list_container,
+                                collectionEmptyDetailsFragment, "CollectionEmptyDetailsFragment")
+                        .addToBackStack("CollectionEmptyDetailsFragment").commit();
+                detail = true;
+
+            }
+            else
+            {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_details_container,
+                                collectionEmptyDetailsFragment, "CollectionEmptyDetailsFragment")
+                        .addToBackStack("CollectionEmptyDetailsFragment").commit();
+            }
         }
     }
 

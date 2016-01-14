@@ -53,17 +53,18 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
      * device.
      */
     private static boolean TWO_PANEL_MODE;
+    private boolean detail;
     private BrowseCollectionFirstDetailFragment browseCollectionFirstDetailFragment;
     private CollectionsGroupListFragment collectionsGroupListFragment;
-
+    protected boolean start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Ln.getConfig().setLoggingLevel(Log.ERROR);
         super.onCreate(savedInstanceState);
-
+        start = false;
         TextView text = (TextView) findViewById(R.id.action_bar_title);
         text.setText("Searched Collections");
-
+        detail = false;
             TWO_PANEL_MODE = true;
             loadLeftListPanel();
             loadMapWithBasicSettingsView();
@@ -78,6 +79,8 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,39 +115,51 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
      *
      * @see android.support.v4.app.FragmentActivity#onBackPressed()
      */
+
+
     @Override
     public void onBackPressed() {
+
         if (dismissMenuOnBackPressed()) return;
+
 
         FragmentManager fm = getSupportFragmentManager();
         int bsec = fm.getBackStackEntryCount();
         if (isBackStackEmpty(bsec)) return;
 
         String bstEntryName = fm.getBackStackEntryAt(bsec - 1).getName();
-        if (bstEntryName.equalsIgnoreCase("CollectionEmptyDetailsFragment")
-                || bstEntryName.equalsIgnoreCase("CollectionDetailsFragment")) {
-            while (bsec > 0) {
-                fm.popBackStackImmediate();
-                bsec = fm.getBackStackEntryCount();
+        if (detail) {
+
+            fm.popBackStackImmediate();
+            detail = false;
+
+        } else {
+            if (bstEntryName.equalsIgnoreCase("CollectionEmptyDetailsFragment")
+                    || bstEntryName.equalsIgnoreCase("CollectionDetailsFragment")) {
+                while (bsec > 0) {
+                    fm.popBackStackImmediate();
+                    bsec = fm.getBackStackEntryCount();
 /*                bstEntryName = fm.getBackStackEntryAt(bsec - 1).getName();
                 if (bstEntryName.equalsIgnoreCase("CollectionEmptyDetailsFragment")
                         || bstEntryName.equalsIgnoreCase("CollectionDetailsFragment"))
                     bsec = 1;*/
-            }
-        } else if (bstEntryName.equalsIgnoreCase("AreaPickerMapFragment")) {
-            while (bstEntryName.equalsIgnoreCase("AreaPickerMapFragment")) {
+                }
+            } else if (bstEntryName.equalsIgnoreCase("AreaPickerMapFragment")) {
+                while (bstEntryName.equalsIgnoreCase("AreaPickerMapFragment")) {
+                    fm.popBackStackImmediate();
+                    bsec = fm.getBackStackEntryCount();
+                    if (isBackStackEmpty(bsec)) return;
+                    bstEntryName = fm.getBackStackEntryAt(bsec - 1).getName();
+                }
+            } else if (bstEntryName.equalsIgnoreCase("CollectionsListFragment")) {
                 fm.popBackStackImmediate();
-                bsec = fm.getBackStackEntryCount();
-                if (isBackStackEmpty(bsec)) return;
-                bstEntryName = fm.getBackStackEntryAt(bsec - 1).getName();
+            } else {
+                finish();
+                super.onBackPressed();
             }
-        } else if (bstEntryName.equalsIgnoreCase("CollectionsListFragment")) {
-            fm.popBackStackImmediate();
-        } else {
-            finish();
-            super.onBackPressed();
         }
     }
+
 
     private boolean isBackStackEmpty(int bsec) {
         if (bsec == 0) {
@@ -160,7 +175,7 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
      *
      */
     private void loadLeftListPanel() {
-        collectionsGroupListFragment = new CollectionsGroupListFragment();
+        collectionsGroupListFragment = new CollectionsGroupListFragment(detail);
         Bundle args = new Bundle();
         collectionsGroupListFragment.setArguments(args);
         getSupportFragmentManager()
@@ -173,12 +188,27 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
         browseCollectionFirstDetailFragment = BrowseCollectionFirstDetailFragment
                 .newInstance();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_base_details_container,
-                        browseCollectionFirstDetailFragment,
-                        "BrowseCollectionFirstDetailFragment").commit();
-    }
+        if (one_Panel)
+        {
+            if (start) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_list_container,
+                                browseCollectionFirstDetailFragment,
+                                "BrowseCollectionFirstDetailFragment").commit();
+                detail = true;
+            }
+        }
+        else {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_details_container,
+                                browseCollectionFirstDetailFragment,
+                                "BrowseCollectionFirstDetailFragment").commit();
+            }
+        }
+
+
 
     /**
      * for fragment to find out if activity is in two-pane mode
@@ -191,32 +221,44 @@ public class CollectionsDefinitionActivity extends BaseCollectionsActivity
     @Override
     public void onCollectionSelected(Integer chosenCollectionId) {
 
-        if (chosenCollectionId == -1) {
+        if (chosenCollectionId == -1 ) {
             Toast.makeText(CollectionsDefinitionActivity.this,
                     R.string.specific_collection_does_not_exist,
                     Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (Const.IS_KINDLE) {
-            AmznBaseMapFragment amznBaseMapFrag = new AmznBaseMapFragment();
-            Bundle args = new Bundle();
-            amznBaseMapFrag.setArguments(args);
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction();
-            transaction.replace(R.id.activity_base_details_container, amznBaseMapFrag);
-            transaction.commit();
-        } else {
-            AreaPickerMapFragment areaPickerMapFragment = new AreaPickerMapFragment();
-            Bundle args = new Bundle();
-            areaPickerMapFragment.setArguments(args);
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction();
-            transaction.replace(R.id.activity_base_details_container, areaPickerMapFragment);
-            transaction
-                    .addToBackStack("AreaPickerMapFragment")
-                    .commit();
-        }
+            if (Const.IS_KINDLE) {
+                AmznBaseMapFragment amznBaseMapFrag = new AmznBaseMapFragment();
+                Bundle args = new Bundle();
+                amznBaseMapFrag.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                if (one_Panel) {
+                    transaction.replace(R.id.activity_base_list_container, amznBaseMapFrag);
+                } else {
+                    transaction.replace(R.id.activity_base_details_container, amznBaseMapFrag);
+                }
+                transaction.commit();
+            } else {
+                AreaPickerMapFragment areaPickerMapFragment = new AreaPickerMapFragment();
+                Bundle args = new Bundle();
+                areaPickerMapFragment.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                if (one_Panel) {
+                    transaction.replace(R.id.activity_base_list_container, areaPickerMapFragment);
+                    transaction
+                            .addToBackStack("AreaPickerMapFragment")
+                            .commit();
+                    detail = true;
+                } else {
+                    transaction.replace(R.id.activity_base_details_container, areaPickerMapFragment);
+                    transaction
+                            .addToBackStack("AreaPickerMapFragment")
+                            .commit();
+                }
+            }
     }
 
     private void callUpdateFirstDetailFrag(LatLngBoundsExt bounds) {

@@ -3,6 +3,7 @@ package pl.wasat.smarthma.ui.frags.missions;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class MissionsExtListFragment extends Fragment {
     private OnExtendedListFragmentListener mListener;
     private ExpandableListView expListView;
     private ParserDb parserDb;
+    private static boolean one_panel;
     public boolean detail;
 
     /**
@@ -56,7 +58,8 @@ public class MissionsExtListFragment extends Fragment {
      * @return A new instance of fragment ExtendedListFragment.
      */
 
-    public static MissionsExtListFragment newInstance() {
+    public static MissionsExtListFragment newInstance(boolean onePanel) {
+        one_panel = onePanel;
         return new MissionsExtListFragment();
     }
 
@@ -119,11 +122,21 @@ public class MissionsExtListFragment extends Fragment {
 
                 MissionsDetailsFragment missionsDetailNewFragment = MissionsDetailsFragment
                         .newInstance(missionItem);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_base_list_container,
-                                missionsDetailNewFragment, "MissionsDetailNewFragment")
-                        .commit();
+                if (one_panel) {
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_base_list_container,
+                                    missionsDetailNewFragment, "MissionsDetailNewFragment")
+                            .commit();
+                }
+                else
+                {
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_base_details_container,
+                                    missionsDetailNewFragment, "MissionsDetailNewFragment")
+                            .commit();
+                }
                 detail = true;
                 return false;
             }

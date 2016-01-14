@@ -7,6 +7,9 @@ import android.content.Context;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 import org.acra.ACRA;
 import org.acra.annotation.ReportsCrashes;
@@ -42,6 +45,7 @@ public class SmartHMApplication extends MultiDexApplication {
     public static ExplainData GlobalExplainData = new ExplainData();
     public static int sortingType = Const.SORT_BY_TITLE_ASCENDING;
     public static SmartHMApplication appSingleton;
+    public static boolean one_panel;
     private static Context context;
 
     protected void attachBaseContext(Context base) {
@@ -56,7 +60,27 @@ public class SmartHMApplication extends MultiDexApplication {
         ACRA.init(this);
         appSingleton = this;
         deviceCheck();
+        checkResolution();
         //SSLCertificateHandler.nuke();
+    }
+
+    private void checkResolution()
+    {
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        int width = metrics.widthPixels;
+
+        if (width < 1100)
+        {
+            one_panel = true;
+        }
+        else
+        {
+            one_panel = false;
+        }
+
     }
 
     private void deviceCheck() {

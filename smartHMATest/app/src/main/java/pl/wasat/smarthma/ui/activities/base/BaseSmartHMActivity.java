@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import pl.wasat.smarthma.R;
@@ -30,6 +33,7 @@ import pl.wasat.smarthma.utils.text.StringExt;
 public class BaseSmartHMActivity extends FragmentActivity {
 
     protected static final int REQUEST_NEW_SEARCH = 0;
+    protected boolean one_Panel;
     protected boolean stopNewSearch = false;
     protected MenuHandler commonMenuHandler;
     private FedeoSearchRequestReceiver fedeoSearchRequestReceiver;
@@ -42,13 +46,40 @@ public class BaseSmartHMActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_base_two_panel);
+
+        checkResolution();
+        if (one_Panel) {
+            setContentView(R.layout.activity_base_one_panel);
+        }
+        else
+        {
+            setContentView(R.layout.activity_base_two_panel);
+        }
         super.onCreate(savedInstanceState);
 
         commonMenuHandler = new CommonMenuHandler(this, R.id.menu_button);
 
         fedeoSearchRequestReceiver = new FedeoSearchRequestReceiver();
 
+
+    }
+
+    private void checkResolution()
+    {
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        int width = metrics.widthPixels;
+
+        if (width < 1100)
+        {
+            one_Panel = true;
+        }
+        else
+        {
+            one_Panel = false;
+        }
 
     }
 

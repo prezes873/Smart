@@ -19,12 +19,24 @@ public class BaseCollectionsActivity extends BaseSmartHMActivity {
     protected void loadIsoMetadataFragment(EntryISO displayedEntry) {
         MetadataISOFragment metadataISOFragment = MetadataISOFragment
                 .newInstance(displayedEntry);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_base_details_container,
-                        metadataISOFragment, "MetadataISOFragment")
-                .addToBackStack("MetadataISOFragment").commit();
+        if (one_Panel)
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_base_list_container,
+                            metadataISOFragment, "MetadataISOFragment")
+                    .addToBackStack("MetadataISOFragment").commit();
+        }
+        else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_base_details_container,
+                            metadataISOFragment, "MetadataISOFragment")
+                    .addToBackStack("MetadataISOFragment").commit();
+        }
     }
+
+
 
     protected void startSearchingProductsProcess(FedeoRequestParams fedeoSearchProductsParams) {
         Intent showProductsIntent = new Intent(this,

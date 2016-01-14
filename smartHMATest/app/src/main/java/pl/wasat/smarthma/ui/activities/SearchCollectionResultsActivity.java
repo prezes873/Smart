@@ -194,14 +194,26 @@ public class SearchCollectionResultsActivity extends BaseSmartHMActivity
 
         collectionDetailsFragment = CollectionDetailsFragment
                 .newInstance(selectedEntry);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_base_details_container,
-                        collectionDetailsFragment,
-                        "CollectionDetailsFragment")
-                .addToBackStack("CollectionDetailsFragment")
-                .commit();
-    }
+        if (one_Panel) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_base_list_container,
+                            collectionDetailsFragment,
+                            "CollectionDetailsFragment")
+                    .addToBackStack("CollectionDetailsFragment")
+                    .commit();
+        }
+        else{
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_details_container,
+                                collectionDetailsFragment,
+                                "CollectionDetailsFragment")
+                        .addToBackStack("CollectionDetailsFragment")
+                        .commit();
+            }
+        }
+
 
     @Override
     public void onMapFragmentBoundsChange(LatLngBoundsExt bounds) {

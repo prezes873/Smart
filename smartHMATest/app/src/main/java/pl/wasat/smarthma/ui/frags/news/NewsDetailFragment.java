@@ -25,7 +25,7 @@ import pl.wasat.smarthma.model.NewsArticle;
 public class NewsDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
-
+    public boolean detail;
     private NewsArticle displayedArticle;
     private EoDbAdapter db;
 

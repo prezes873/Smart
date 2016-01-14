@@ -34,14 +34,20 @@ public class CollectionsGroupListFragment extends Fragment implements
      * to declare it in AndroidManifest.xml
      */
 
-    private final OkHttpBitmapSpiceManager spiceManagerBinary = new OkHttpBitmapSpiceManager();
 
+
+    private final OkHttpBitmapSpiceManager spiceManagerBinary = new OkHttpBitmapSpiceManager();
+    private boolean detail;
     private final SpiceManager spiceManager = new SpiceManager(
             SmartHmaHttpSpiceService.class);
 
     private ListView collectionsGroupListView;
     private View loadingView;
     private CollectionsListFragment collectionsListFragment;
+
+    public CollectionsGroupListFragment(boolean detail) {
+        this.detail = detail;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +133,7 @@ public class CollectionsGroupListFragment extends Fragment implements
 
     private void loadCollectionsList(int listPosition) {
         collectionsListFragment = CollectionsListFragment
-                .newInstance(listPosition);
+                .newInstance(listPosition, detail);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_base_list_container, collectionsListFragment).addToBackStack("CollectionsListFragment")
                 .commit();

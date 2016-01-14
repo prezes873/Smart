@@ -22,7 +22,7 @@ public class NewsActivity extends BaseSmartHMActivity implements
     private boolean mTwoPane;
     private EoDbAdapter dba;
     private NewsListFragment newsListFragment;
-
+    private NewsDetailFragment newsDetailFragment;
     public NewsActivity() {
     }
 
@@ -56,7 +56,7 @@ public class NewsActivity extends BaseSmartHMActivity implements
 
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(NewsActivity.this,StartActivity.class);
+                Intent startIntent = new Intent(NewsActivity.this, StartActivity.class);
                 startActivity(startIntent);
             }
         });
@@ -91,10 +91,18 @@ public class NewsActivity extends BaseSmartHMActivity implements
             Bundle arguments = new Bundle();
             arguments.putSerializable(NewsArticle.KEY, selected);
 
-            NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+            newsDetailFragment = new NewsDetailFragment();
             newsDetailFragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_base_details_container, newsDetailFragment, "NewsDetailFragment").commit();
+            if (one_Panel)
+            {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.activity_base_list_container, newsDetailFragment, "NewsDetailFragment").commit();
+                newsDetailFragment.detail = false;
+            }
+            else {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.activity_base_details_container, newsDetailFragment, "NewsDetailFragment").commit();
+            }
 
         }
     }
@@ -107,14 +115,16 @@ public class NewsActivity extends BaseSmartHMActivity implements
     @Override
     public void onBackPressed() {
         if (dismissMenuOnBackPressed()) return;
-        FragmentManager fm = getSupportFragmentManager();
-        int bsec = fm.getBackStackEntryCount();
-        if (bsec > 1) {
-            fm.popBackStack();
-        } else {
-            finish();
-            super.onBackPressed();
-        }
+
+            FragmentManager fm = getSupportFragmentManager();
+            int bsec = fm.getBackStackEntryCount();
+            if (bsec > 1) {
+                fm.popBackStack();
+            } else {
+                finish();
+                super.onBackPressed();
+            }
+
     }
 
     public NewsListFragment getNewsListFragment() {

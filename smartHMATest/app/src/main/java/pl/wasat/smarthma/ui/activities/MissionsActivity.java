@@ -39,6 +39,7 @@ public class MissionsActivity extends BaseSmartHMActivity implements
         super.onCreate(savedInstanceState);
         start = false;
         detail = false;
+
         RelativeLayout btnBack = (RelativeLayout) findViewById(R.id.btnBackTwoPanel);
         btnBack.setOnClickListener(new View.OnClickListener() {
 
@@ -60,7 +61,7 @@ public class MissionsActivity extends BaseSmartHMActivity implements
         //jesli jest w bazie 60 misji, to ladujemy fragment
         if (parserDb.getMissionCount() == 60) {
             extendedListFragment = MissionsExtListFragment
-                    .newInstance();
+                    .newInstance(one_Panel);
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -76,8 +77,13 @@ public class MissionsActivity extends BaseSmartHMActivity implements
             missionsDetailNewFragment = MissionsDetailsFragment
                     .newInstance(missionObjective);
 
-            start = true;
-
+            if (!one_Panel) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.activity_base_details_container, missionsDetailNewFragment,
+                                "ExtendedListFragment").commit();
+                extendedListFragment.detail = false;
+            }
         }
 
         //w przeciwnym wypadku odpalamy async task
@@ -92,34 +98,33 @@ public class MissionsActivity extends BaseSmartHMActivity implements
 
     @Override
     public void onBackPressed() {
-        if(missionsDetailNewFragment != null) {
-            if (extendedListFragment.detail)
-            {
+        if (one_Panel) {
+            if (missionsDetailNewFragment != null) {
+                if (extendedListFragment.detail) {
 
-                if (getSupportFragmentManager().findFragmentByTag("ExtendedListFragment") == null) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.activity_base_list_container, extendedListFragment,
-                                    "ExtendedListFragment").commit();
-                    extendedListFragment.detail = false;
-                }
-                else
-                {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.activity_base_list_container, extendedListFragment,
-                                    "ExtendedListFragment").commit();
-                    extendedListFragment.detail = false;
-                }
+                    if (getSupportFragmentManager().findFragmentByTag("ExtendedListFragment") == null) {
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .add(R.id.activity_base_list_container, extendedListFragment,
+                                        "ExtendedListFragment").commit();
+                        extendedListFragment.detail = false;
+                    } else {
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.activity_base_list_container, extendedListFragment,
+                                        "ExtendedListFragment").commit();
+                        extendedListFragment.detail = false;
+                    }
 
-            }
-            else {
+                } else {
+                    super.onBackPressed();
+                }
+            } else {
                 super.onBackPressed();
             }
         }
-        else{
-            super.onBackPressed();
-        }
+        else
+        {super.onBackPressed();}
     }
 
     @Override
@@ -171,7 +176,7 @@ public class MissionsActivity extends BaseSmartHMActivity implements
                 dialog.dismiss();
             }
             extendedListFragment = MissionsExtListFragment
-                    .newInstance();
+                    .newInstance(one_Panel);
 
             getSupportFragmentManager()
                     .beginTransaction()

@@ -26,7 +26,7 @@ import pl.wasat.smarthma.R;
 public class BaseSearchSideParametersFragment extends BaseDateTimeAreaContainerFragment {
     protected View rootView;
     private static TextView tvCatalogName;
-
+    protected static boolean one_panel;
     private static final CharSequence[] cataloguesList = {"EOP:ESA:FEDEO",
             "EOP:ESA:FEDEO:COLLECTIONS", "EOP:ESA:GPOD-EO", "EOP:ESA:EO-VIRTUAL-ARCHIVE4",
             "EOP:ESA:SMOS", "EOP:JAXA:CATS-I", "EOP:NASA:ECHO"};
@@ -37,7 +37,8 @@ public class BaseSearchSideParametersFragment extends BaseDateTimeAreaContainerF
      *
      * @return A new instance of fragment SearchBasicInfoRightFragment.
      */
-    public static BaseSearchSideParametersFragment newInstance() {
+    public static BaseSearchSideParametersFragment newInstance(boolean onePanel) {
+        one_panel = onePanel;
         return new BaseSearchSideParametersFragment();
     }
 
@@ -47,8 +48,16 @@ public class BaseSearchSideParametersFragment extends BaseDateTimeAreaContainerF
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(
-                R.layout.fragment_search_side_parameters, container, false);
+
+        if (one_panel)
+        {
+            rootView = inflater.inflate(
+                    R.layout.fragment_search_side_parameters_one_panel, container, false);
+        }
+        else {
+            rootView = inflater.inflate(
+                    R.layout.fragment_search_side_parameters, container, false);
+        }
 
         tvCatalogName = (TextView) rootView
                 .findViewById(R.id.search_frag_side_params_tv_catalog_name);

@@ -47,8 +47,8 @@
 
                 <SearchView
                     android:id="@+id/search_frag_searchview"
-                    android:layout_width="400dp"
-                    android:layout_height="@dimen/search_eo_data_search_view_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="1dp"
                     android:background="@drawable/edit_text"

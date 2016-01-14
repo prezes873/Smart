@@ -18,7 +18,8 @@ public class SearchBasicParametersFragment extends BaseSearchSideParametersFragm
      *
      * @return A new instance of fragment SearchBasicInfoRightFragment.
      */
-    public static SearchBasicParametersFragment newInstance() {
+    public static SearchBasicParametersFragment newInstance(boolean onePanel) {
+        one_panel = onePanel;
         return new SearchBasicParametersFragment();
     }
 

@@ -214,7 +214,7 @@ public class SearchActivity extends BaseSmartHMActivity implements
      */
     private void loadBasicParamsFragment() {
         SearchBasicParametersFragment searchBasicParametersFragment = SearchBasicParametersFragment
-                .newInstance();
+                .newInstance(one_Panel);
         sideParamsPanel = searchBasicParametersFragment;
         getSupportFragmentManager()
                 .beginTransaction()

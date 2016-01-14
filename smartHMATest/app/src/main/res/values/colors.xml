@@ -4,7 +4,7 @@
 
     <item name="action_bar_title" type="color">#3b3b3b</item>
     <item name="action_bar_menu_background" type="color">#0e72b5</item>
-    <item name="action_bar_background" type="color">#c9c9c9</item>
+    <item name="action_bar_background" type="color">#EAEAEA</item>
 
     <item name="text_blue" type="color">#0e72b5</item>
     <item name="button_blue" type="color">#0e72b5</item>

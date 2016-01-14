@@ -39,6 +39,7 @@
     <string name="search_history_empty">(search history is empty)</string>
     <string name="query">Query</string>
     <string name="basic_settings">Basic Settings</string>
+    <string name="search_title">SEARCH PARAMETERS</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="basic_search_settings">EO Dataset Series Search</string>
     <string name="search_area">Search Area</string>

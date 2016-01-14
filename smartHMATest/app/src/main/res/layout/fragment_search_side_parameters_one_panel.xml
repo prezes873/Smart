@@ -47,6 +47,18 @@ android:layout_width="match_parent" android:layout_height="match_parent">
                 style="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/background_gray"
+                android:paddingTop="@dimen/search_eo_data_padding_medium"
+                android:paddingBottom="@dimen/search_eo_data_padding_medium"
+                android:paddingLeft="@dimen/search_eo_data_padding"
+                android:text="@string/search_title"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/search_eo_data_text" />
+
+            <pl.wasat.smarthma.customviews.TextViewWithFont
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/background_white"
                 android:paddingBottom="@dimen/search_eo_data_padding_small"
                 android:paddingLeft="@dimen/search_eo_data_padding"

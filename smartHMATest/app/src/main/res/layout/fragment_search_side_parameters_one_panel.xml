@@ -16,14 +16,14 @@ android:layout_width="match_parent" android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/search_frag_searchview_layout"
-                android:layout_width="@dimen/search_eo_data_search_view_width"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_below="@id/s_text">
 
                 <SearchView
                     android:id="@+id/search_frag_searchview"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="1dp"

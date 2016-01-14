@@ -36,8 +36,6 @@ public class BaseCollectionsActivity extends BaseSmartHMActivity {
         }
     }
 
-
-
     protected void startSearchingProductsProcess(FedeoRequestParams fedeoSearchProductsParams) {
         Intent showProductsIntent = new Intent(this,
                 ProductsBrowserActivity.class);

@@ -44,15 +44,32 @@ public class ProductsListFragmentBase extends BaseShowProductsListFragment {
     public void loadProductItemDetails(Entry entry) {
         ProductDetailsFragment productDetailsFragment = ProductDetailsFragment
                 .newInstance(entry);
-        getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_base_details_container,
-                        productDetailsFragment,
-                        "ProductDetailsFragment")
-                .addToBackStack("ProductDetailsFragment").commit();
+
+        if (one_panel) {
+
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_base_list_container,
+                            productDetailsFragment,
+                            "ProductDetailsFragment")
+                    .addToBackStack("ProductDetailsFragment").commit();
+        }
+        else
+        {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_base_details_container,
+                                productDetailsFragment,
+                                "ProductDetailsFragment")
+                        .addToBackStack("ProductDetailsFragment").commit();
+
+                super.loadProductItemDetails(entry);
+            }
 
         super.loadProductItemDetails(entry);
+
     }
 
     /*

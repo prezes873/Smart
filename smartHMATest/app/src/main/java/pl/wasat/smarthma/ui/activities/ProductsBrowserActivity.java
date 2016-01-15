@@ -28,7 +28,7 @@ public class ProductsBrowserActivity extends BaseProductsBrowserActivity {
         FedeoRequestParams fedeoRequestParams = (FedeoRequestParams) intent.getSerializableExtra(Const.KEY_INTENT_FEDEO_REQUEST_PARAMS);
 
         productsListFragment = ProductsListFragment
-                .newInstance(fedeoRequestParams);
+                .newInstance(fedeoRequestParams, one_Panel);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_base_list_container,

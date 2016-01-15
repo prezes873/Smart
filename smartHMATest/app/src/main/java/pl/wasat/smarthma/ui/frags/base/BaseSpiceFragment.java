@@ -3,8 +3,12 @@
  */
 package pl.wasat.smarthma.ui.frags.base;
 
+import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -22,6 +26,7 @@ public class BaseSpiceFragment extends Fragment {
     private final SpiceManager smartHMASpiceManager = new SpiceManager(
             SmartHmaHttpSpiceService.class);
     private final OkHttpBitmapSpiceManager spiceManagerBinary = new OkHttpBitmapSpiceManager();
+    protected static boolean one_panel;
 
     @Override
     public void onStart() {
@@ -33,6 +38,8 @@ public class BaseSpiceFragment extends Fragment {
         if (spiceManagerBinary.getPendingRequestCount() > 0)
             spiceManagerBinary.cancelAllRequests();
         spiceManagerBinary.start(getActivity());
+
+
     }
 
     @Override

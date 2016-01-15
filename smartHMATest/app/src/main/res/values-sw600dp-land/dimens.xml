@@ -1,0 +1,11 @@
+<resources>
+
+    <!--
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw600dp devices (e.g. 7" tablets) here.
+    -->
+    <dimen name="menu_button_size_width_land_">100dp</dimen>
+    <dimen name="menu_button_size_height_land_">100dp</dimen>
+    <dimen name="menu_logo_center_width_land">200dp</dimen>
+    <dimen name="menu_logo_center_height_land">200dp</dimen>
+</resources>

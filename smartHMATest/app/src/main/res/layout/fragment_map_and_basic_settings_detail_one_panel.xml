@@ -223,7 +223,6 @@
             android:background="@color/background_gray"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/browse_eo_padding"
             android:paddingTop="@dimen/browse_eo_padding">
 
             <Button
@@ -235,16 +234,27 @@
                 android:drawableLeft="@drawable/ic_show_products"
                 android:enabled="true"
                 android:text="@string/show_products" />
-            <Button
-                android:id="@+id/frag_search_res_coll_det_btn_show_meta"
-                style="@style/buttonBlue"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_blue_height"
-                android:layout_gravity="center_vertical|center_horizontal|center"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_metadata"
-                android:text="@string/show_metadata" />
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_gray"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/browse_eo_padding">
+
+        <Button
+            android:id="@+id/frag_search_res_coll_det_btn_show_meta"
+            style="@style/buttonBlue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_blue_height"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_metadata"
+            android:text="@string/show_metadata" />
         </LinearLayout>
     </LinearLayout>
 

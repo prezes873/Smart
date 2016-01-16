@@ -11,6 +11,7 @@ import pl.wasat.smarthma.model.FedeoRequestParams;
  */
 public class ProductsListFragment extends ProductsListFragmentBase {
     private static final String KEY_PARAM_FEDEO_REQUEST = "pl.wasat.smarthma.KEY_PARAM_FEDEO_REQUEST";
+
     /**
      * Use this factory method to create a new instance of this fragment using
      * the provided parameters.
@@ -19,15 +20,12 @@ public class ProductsListFragment extends ProductsListFragmentBase {
      * @return A new instance of fragment SearchProductsFeedsFragment.
      */
     public static ProductsListFragment newInstance(
-            FedeoRequestParams fedeoRequestParams, boolean onePanel) {
-
-        one_panel = onePanel;
+            FedeoRequestParams fedeoRequestParams) {
         ProductsListFragment fragment = new ProductsListFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_PARAM_FEDEO_REQUEST, fedeoRequestParams);
         fragment.setArguments(args);
         return fragment;
-
     }
 
     public ProductsListFragment() {

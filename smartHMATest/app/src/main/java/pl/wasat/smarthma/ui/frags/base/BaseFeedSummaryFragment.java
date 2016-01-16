@@ -42,10 +42,8 @@ public class BaseFeedSummaryFragment extends Fragment {
     private View btnReload;
     private View btnNext;
     private View btnLast;
-    protected boolean one_panel;
 
     public BaseFeedSummaryFragment() {
-
     }
 
     @Override

@@ -189,7 +189,7 @@ public class CollectionsListFragment extends BaseSpiceFragment {
         if (!searchedCollectionFeed.getTotalResults().getText().isEmpty()) {
             entryISO = searchedCollectionFeed.getEntriesISO().get(0);
             CollectionDetailsFragment collectionDetailsFragment = CollectionDetailsFragment
-                    .newInstance(entryISO);
+                    .newInstance(entryISO, one_panel);
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()

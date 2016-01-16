@@ -115,7 +115,7 @@ public class CollectionsBrowserActivity extends ExtendedBaseCollectionsActivity 
         adapter.notifyDataSetChanged();
 
         CollectionDetailsFragment collectionDetailsFragment = CollectionDetailsFragment
-                .newInstance(selectedEntry);
+                .newInstance(selectedEntry, one_Panel);
 
 
         getSupportFragmentManager()

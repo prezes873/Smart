@@ -22,10 +22,12 @@ public class BaseSpiceFragment extends Fragment {
     private final SpiceManager smartHMASpiceManager = new SpiceManager(
             SmartHmaHttpSpiceService.class);
     private final OkHttpBitmapSpiceManager spiceManagerBinary = new OkHttpBitmapSpiceManager();
+    protected static  boolean one_panel;
 
     @Override
     public void onStart() {
         super.onStart();
+
         if (smartHMASpiceManager.getPendingRequestCount() > 0)
             smartHMASpiceManager.cancelAllRequests();
         smartHMASpiceManager.start(getActivity());

@@ -77,9 +77,17 @@ public class BaseViewAndBasicSettingsDetailFragment extends BaseDateTimeAreaCont
 
         String parentID = "";
 
-        rootView = inflater.inflate(
-                R.layout.fragment_map_and_basic_settings_detail, container,
-                false);
+        if (one_panel)
+        {
+            rootView = inflater.inflate(
+                    R.layout.fragment_map_and_basic_settings_detail_one_panel, container,
+                    false);
+        }
+        else {
+            rootView = inflater.inflate(
+                    R.layout.fragment_map_and_basic_settings_detail, container,
+                    false);
+        }
         //TODO INFOAPPS
         mSlidingLayer = (SlidingLayer) rootView.findViewById(R.id.sliding_layer_with_params);
 

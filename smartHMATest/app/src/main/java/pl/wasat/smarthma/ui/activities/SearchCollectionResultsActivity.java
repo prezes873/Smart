@@ -193,7 +193,7 @@ public class SearchCollectionResultsActivity extends BaseSmartHMActivity
         adapter.notifyDataSetChanged();
 
         collectionDetailsFragment = CollectionDetailsFragment
-                .newInstance(selectedEntry);
+                .newInstance(selectedEntry, one_Panel);
         if (one_Panel) {
             getSupportFragmentManager()
                     .beginTransaction()

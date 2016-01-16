@@ -99,7 +99,7 @@ public class FavouriteCollectionsActivity extends ExtendedBaseCollectionsActivit
         adapter.notifyDataSetChanged();
 
         collectionDetailsFragment = CollectionDetailsFragment
-                .newInstance(selectedEntry);
+                .newInstance(selectedEntry, one_Panel);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_base_details_container,

@@ -59,7 +59,8 @@ public class CollectionDetailsFragment extends
      * @param collectionEntry Parameter 1.
      * @return A new instance of fragment CollectionDetailsFragment.
      */
-    public static CollectionDetailsFragment newInstance(EntryISO collectionEntry) {
+    public static CollectionDetailsFragment newInstance(EntryISO collectionEntry, boolean onePanel) {
+        one_panel = onePanel;
         CollectionDetailsFragment fragment = new CollectionDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_COLLECTION_ENTRY, collectionEntry);
